@@ -1,7 +1,7 @@
 import React from 'react'
 
 // 路由
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 
 // 状态管理
 import { Provider } from 'mobx-react'
@@ -17,13 +17,13 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <BrowserRouter>
+      <HashRouter>
         <Provider store={store}>
           <div className="app">
             <QfLayout></QfLayout>
           </div>
         </Provider>
-      </BrowserRouter>
+      </HashRouter>
     )
   }
 }

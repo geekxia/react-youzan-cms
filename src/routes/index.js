@@ -1,5 +1,6 @@
 import Home from './home/Home'
 import Card from './card/Card'
+import CardCreate from './card_create/CardCreate'
 
 const routes = [
   {
@@ -19,7 +20,15 @@ const routes = [
         id: 102,
         path: '/card',
         text: '权益卡',
-        component: Card
+        component: Card,
+        children: [
+          {
+            id: 10201,
+            path: '/card/create',
+            text: '新建权益卡',
+            component: CardCreate,
+          }
+        ]
       }
     ]
   },

@@ -14,6 +14,13 @@ export default class Content extends React.Component {
           routeArr.push(
             <Route key={ele2.id} path={ele2.path} exact component={ele2.component}></Route>
           )
+          if(ele2.children && ele2.children.length > 0) {
+            ele2.children.map((ele3, idx3)=>{
+              routeArr.push(
+                <Route key={ele3.id} path={ele3.path} exact component={ele3.component}></Route>
+              )
+            })
+          }
         })
       }
     })

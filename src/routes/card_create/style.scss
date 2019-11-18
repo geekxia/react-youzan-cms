@@ -1,0 +1,32 @@
+.card_create {
+  padding-bottom: 55px;
+  .card_create_wrap {
+    padding: 15px;
+    box-sizing: border-box;
+    background: white;
+    .card_create_title {
+      font-weight: bold;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 15px;
+    }
+    .card_create_label {
+      display: block;
+      text-align: right;
+      padding-right: 15px;
+    }
+  }
+  .card_create_btns {
+    position: fixed;
+    bottom: 0;
+    left: 150px;
+    right: 0;
+    height: 55px;
+    text-align: center;
+    background-color: white;
+    line-height: 55px;
+    box-shadow: 0 -3px 5px #eee;
+    >Button {
+      margin: 10px;
+    }
+  }
+}
