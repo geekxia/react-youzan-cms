@@ -1,0 +1,33 @@
+.qf_layout {
+  .aside {
+    position: absolute;
+    left: 0;
+    width: 150px;    // 这个宽度可以调整
+    bottom: 0;
+    top: 0;
+    background: rgba(68, 68, 68, 1);
+  }
+  .header {
+    position: absolute;
+    top: 0;
+    left: 150px;    // 同上调整
+    height: 80px;   // 这个高度可以调整
+    right: 0;
+    background: white;
+  }
+  .content {
+    position: absolute;
+    top: 80px;      // 同上调整
+    left: 150px;    // 同上调整
+    right: 0;
+    bottom: 0;
+    background: rgba(247, 248, 250, 1);
+    overflow: auto;
+    padding: 15px;
+    .content_wrap {
+      width: 100%;
+      height: 100%;
+      background: white;
+    }
+  }
+}

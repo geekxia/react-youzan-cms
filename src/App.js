@@ -1,23 +1,29 @@
-import React from 'react';
-import store from './store'
+import React from 'react'
+
+// 路由
+import { BrowserRouter } from 'react-router-dom'
+
+// 状态管理
 import { Provider } from 'mobx-react'
+import store from '@/store'
 
-import { BrowserRouter, Route, Switch, NavLink } from 'react-router-dom'
+// UI
 import 'antd/dist/antd.css'
+import '@/assets/css/common.scss'
 
-import Order from './routes/order'
+import { QfLayout } from '@/components'
 
-function App() {
-  return (
-    <BrowserRouter>
-      <Provider store={store}>
-        <div className="App">
-          <NavLink to='/order'>订单</NavLink>
-          <Route path='/order' component={Order}></Route>
-        </div>
-      </Provider>
-    </BrowserRouter>
-  );
+export default class App extends React.Component {
+
+  render() {
+    return (
+      <BrowserRouter>
+        <Provider store={store}>
+          <div className="app">
+            <QfLayout></QfLayout>
+          </div>
+        </Provider>
+      </BrowserRouter>
+    )
+  }
 }
-
-export default App;
