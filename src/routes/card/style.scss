@@ -1,7 +1,15 @@
-.tab_card_list {
-  .card_list_row_handle {
-    a {
-      padding: 0 5px;
+.page_card {
+  padding: 15px;
+  background: white;
+
+  .page_card_tab1 {
+    .pct_top {
+      padding-bottom: 15px;
+    }
+    .pct_row_actions {
+      a {
+        padding: 0 5px;
+      }
     }
   }
 }

@@ -26,7 +26,7 @@ const routes = [
             id: 10201,
             path: '/card/create',
             text: '新建权益卡',
-            component: CardCreate,
+            component: CardCreate
           }
         ]
       }
