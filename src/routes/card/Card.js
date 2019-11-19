@@ -1,10 +1,20 @@
 import React from 'react'
 import TabCardList from './TabCardList'
 import './style.scss'
+
 import { Tabs } from 'antd'
 const { TabPane } = Tabs
 
+
 export default class Card extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+
+    }
+    console.log('----------------')
+  }
+
   skipToCardCreate() {
     console.log('card组件', this.props)
     // 编程式路由跳转

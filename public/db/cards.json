@@ -1,0 +1,50 @@
+{
+  "code": 1,
+  "message": "success",
+  "data": [
+    {
+      "id": 1,
+      "name": "亲情卡",
+      "condition": 1,
+      "condition_zh": "可直接领取",
+      "period": 0,
+      "rights": [1,2,3],
+      "rights_zh": ["包邮", "消费折扣", "积分回馈倍率"],
+      "status": 1,
+      "status_zh": "使用中"
+    },
+    {
+      "id": 2,
+      "name": "亲情卡",
+      "condition": 1,
+      "condition_zh": "可直接领取",
+      "period": 1,
+      "rights": [1,2,3],
+      "rights_zh": ["包邮", "消费折扣", "积分回馈倍率"],
+      "status": 1,
+      "status_zh": "使用中"
+    },
+    {
+      "id": 3,
+      "name": "亲情卡",
+      "condition": 1,
+      "condition_zh": "可直接领取",
+      "period": 2,
+      "rights": [1,2,3],
+      "rights_zh": ["包邮", "消费折扣", "积分回馈倍率"],
+      "status": 2,
+      "status_zh": "使用中"
+    },
+    {
+      "id": 4,
+      "name": "亲情卡",
+      "condition": 1,
+      "condition_zh": "可直接领取",
+      "period": 3,
+      "rights": [1,2,3],
+      "rights_zh": ["包邮", "消费折扣", "积分回馈倍率"],
+      "status": 3,
+      "status_zh": "使用中"
+    }
+  ]
+}

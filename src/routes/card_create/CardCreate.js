@@ -17,6 +17,25 @@ const { TextArea } = Input
 const { Option } = Select
 
 export default class CardCreate extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      card: {
+        name: '',
+        period: 1,
+        condition: 1,
+        rights: []
+      }
+    }
+  }
+
+  periodChange(e) {
+    console.log(e.target.value)
+  }
+  dateChange(e) {
+    console.log(e[0].format('YYYY-MM-DD'))
+    console.log(e[1].format('YYYY-MM-DD'))
+  }
 
   render() {
     const options1 = [
@@ -73,7 +92,7 @@ export default class CardCreate extends React.Component {
                 <span className='pcc_block_lable'>卡有效期：</span>
               </Col>
               <Col span={9}>
-                <Radio.Group>
+                <Radio.Group onChange={this.periodChange.bind(this)}>
                   <Radio value={1} className='pcc_block_radio'>
                     <span>永久有效</span>
                   </Radio>
@@ -81,7 +100,7 @@ export default class CardCreate extends React.Component {
                     <span>领卡时起</span>
                   </Radio>
                   <Radio value={3} className='pcc_block_radio'>
-                    <RangePicker />
+                    <RangePicker onChange={this.dateChange.bind(this)} />
                   </Radio>
                 </Radio.Group>
               </Col>
@@ -127,7 +146,7 @@ export default class CardCreate extends React.Component {
 
           {/*权益礼包 块*/}
           <div className='pcc_block'>
-            <div className='pcc_block_title'>基本信息</div>
+            <div className='pcc_block_title'>权益礼包</div>
 
             <Row className='pcc_block_row'>
               <Col span={4}>
@@ -137,7 +156,7 @@ export default class CardCreate extends React.Component {
                 {
                   options1.map((ele,idx)=>{
                     return(
-                      <div>
+                      <div key={idx}>
                         <Checkbox>{ele.label}</Checkbox>
                       </div>
                     )
@@ -155,7 +174,7 @@ export default class CardCreate extends React.Component {
                 <div>领卡礼包仅在权益卡首次领取和续费时发放</div>
                 {
                   options2.map((ele,idx)=>{
-                    if (idx ==2 ) {
+                    if (idx === 2) {
                       return(
                         <div key={idx}>
                           <Checkbox>{ele.label}</Checkbox>
@@ -201,6 +220,15 @@ export default class CardCreate extends React.Component {
               </Col>
             </Row>
 
+            <Row className='pcc_block_row'>
+              <Col span={4}>
+                <span className='pcc_block_lable'>分享设置：</span>
+              </Col>
+              <Col span={10}>
+                <Checkbox>允许分享</Checkbox>
+              </Col>
+            </Row>
+
             <Row type='flex' align='middle' className='pcc_block_row'>
               <Col span={4}>
                 <span className='pcc_block_lable'>过期设置：</span>
@@ -216,7 +244,7 @@ export default class CardCreate extends React.Component {
                   {
                     options3.map((ele,idx)=>{
                       return(
-                        <Option value={ele.value}>{ele.label}</Option>
+                        <Option key={idx} value={ele.value}>{ele.label}</Option>
                       )
                     })
                   }

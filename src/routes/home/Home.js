@@ -6,13 +6,12 @@ import { Button } from 'antd'
 @inject('store') @observer
 class Home extends React.Component {
   componentDidMount() {
-    this.props.store.updateMsg()
+    // this.props.store.updateMsg()
   }
   render() {
     return (
       <div>
         <h1>客户首页</h1>
-        <h1>{this.props.store.msg}</h1>
         <Button type='primary'>按钮</Button>
       </div>
     )

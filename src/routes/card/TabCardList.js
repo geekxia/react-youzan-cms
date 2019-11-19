@@ -1,4 +1,5 @@
 import React from 'react'
+import { inject, observer } from 'mobx-react'
 import {
   Button,
   Row,
@@ -10,9 +11,17 @@ import {
 const { Search } = Input
 const { TabPane } = Tabs
 
-export default class TabCardList extends React.Component {
+@inject('store') @observer
+class TabCardList extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      searchText: ''
+    }
+  }
+  componentDidMount() {
+    console.log(this.props)
+    this.props.store.CardStore.getCardList()
   }
   // 新建权益卡 按钮 点击事件
   skipToCardCreate() {
@@ -20,7 +29,20 @@ export default class TabCardList extends React.Component {
     // 调用父组件的props事件，实现路由跳转
     this.props.onSkip()
   }
+  tableChange(e) {
+    this.props.store.CardStore.getCardListOfPage(e.current, e.pageSize)
+  }
+  statusChange(e) {
+    console.log(e)
+    this.props.store.CardStore.getCardListOfStatus(e)
+  }
+  searchChange(e) {
+    console.log(e)
+    this.props.store.CardStore.getCardListOfSearch(e)
+  }
+
   render() {
+    let { list2, pageList } = this.props.store.CardStore
     const columns = [
       {
         title: '权益卡名称',
@@ -31,20 +53,27 @@ export default class TabCardList extends React.Component {
       {
         title: '领取条件',
         // width: 100,
-        dataIndex: 'age',
-        key: 'age'
+        dataIndex: 'condition_zh',
+        key: 'condition_zh'
       },
       {
         title: '有效期',
         // width: 100,
-        dataIndex: 'age1',
-        key: 'age1'
+        dataIndex: 'period',
+        key: 'period'
       },
       {
         title: '权益',
         // width: 100,
-        dataIndex: 'age2',
-        key: 'age2'
+        dataIndex: 'rights_zh',
+        key: 'rights_zh',
+        render: (text, row, idx)=>{
+          let arr = []
+          row.rights_zh.map((ele, idx)=>{
+            arr.push(<div key={idx}>{ele}</div>)
+          })
+          return arr
+        }
       },
       {
         title: '操作',
@@ -64,20 +93,7 @@ export default class TabCardList extends React.Component {
       },
     ];
 
-    const data = [
-      {
-        key: '1',
-        name: 'John Brown',
-        age: 32,
-        address: 'New York Park',
-      },
-      {
-        key: '2',
-        name: 'Jim Green',
-        age: 40,
-        address: 'London Park'
-      }
-    ];
+
 
     return (
       <div className="page_card_tab1">
@@ -91,7 +107,7 @@ export default class TabCardList extends React.Component {
             <Col span={6}>
             <Search
               placeholder="请输入权益卡名称"
-              onSearch={value => console.log(value)}
+              onSearch={this.searchChange.bind(this)}
             />
             </Col>
           </Row>
@@ -99,7 +115,7 @@ export default class TabCardList extends React.Component {
 
         {/*三个筛选按钮*/}
         <div>
-        <Tabs type="card">
+        <Tabs type="card" onChange={this.statusChange.bind(this)}>
           <TabPane tab="使用中" key="1">
           </TabPane>
           <TabPane tab="已禁用" key="2">
@@ -112,13 +128,16 @@ export default class TabCardList extends React.Component {
         {/*表格区域*/}
         <div>
           <Table
+            rowKey='id'
             columns={columns}
-            dataSource={data}
+            dataSource={pageList}
             scroll={{ x: 1000 }}
-            pagination={{pageSize: 4}} />
+            onChange={this.tableChange.bind(this)}
+            pagination={{pageSize: 2, total: list2.length}} />
         </div>
 
       </div>
     )
   }
 }
+export default TabCardList
