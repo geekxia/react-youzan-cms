@@ -11,13 +11,18 @@
     position: absolute;
     top: 0;
     left: 150px;    // 同上调整
-    height: 80px;   // 这个高度可以调整
+    height: 50px;   // 这个高度可以调整
     right: 0;
     background: white;
+    padding-left: 20px;
+    line-height: 50px;
+    .ant-breadcrumb {
+      line-height: 50px;
+    }
   }
   .content {
     position: absolute;
-    top: 80px;      // 同上调整
+    top: 50px;      // 同上调整
     left: 150px;    // 同上调整
     right: 0;
     bottom: 0;

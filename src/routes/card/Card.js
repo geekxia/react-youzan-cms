@@ -1,32 +1,22 @@
 import React from 'react'
 import TabCardList from './TabCardList'
 import './style.scss'
-
 import { Tabs } from 'antd'
 const { TabPane } = Tabs
 
-
 export default class Card extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-
-    }
-    console.log('----------------')
-  }
-
-  skipToCardCreate() {
-    console.log('card组件', this.props)
-    // 编程式路由跳转
-    this.props.history.push('/card/create')
-  }
+  // skipToCardCreate() {
+  //   console.log('card组件', this.props)
+  //   // 编程式路由跳转
+  //   this.props.history.push('/card/create')
+  // }
   render() {
     return (
       <div className="page_card">
       <Tabs defaultActiveKey="1">
         <TabPane tab="权益卡管理" key="1">
 
-          <TabCardList onSkip={this.skipToCardCreate.bind(this)}></TabCardList>
+          <TabCardList></TabCardList>
 
         </TabPane>
         <TabPane tab="领卡记录" key="2">

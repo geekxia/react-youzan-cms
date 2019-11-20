@@ -33,7 +33,7 @@ export function getOrderList(data, callback) {
   })
 }
 
-// 获取权限卡列表
+// 获取权益卡列表
 export function getCardList(data, callback) {
   fetch('/db/cards.json', 'GET', data, res=>{
     callback && callback(res)

@@ -6,45 +6,41 @@
       "id": 1,
       "name": "亲情卡",
       "condition": 1,
-      "condition_zh": "可直接领取",
-      "period": 0,
-      "rights": [1,2,3],
-      "rights_zh": ["包邮", "消费折扣", "积分回馈倍率"],
-      "status": 1,
-      "status_zh": "使用中"
+      "period": 1,
+      "rights": [1,3,4],
+      "status": 1
     },
     {
       "id": 2,
-      "name": "亲情卡",
-      "condition": 1,
-      "condition_zh": "可直接领取",
-      "period": 1,
-      "rights": [1,2,3],
-      "rights_zh": ["包邮", "消费折扣", "积分回馈倍率"],
-      "status": 1,
-      "status_zh": "使用中"
+      "name": "友情卡",
+      "condition": 2,
+      "period": 2,
+      "rights": [1,3,4],
+      "status": 2
     },
     {
       "id": 3,
-      "name": "亲情卡",
-      "condition": 1,
-      "condition_zh": "可直接领取",
-      "period": 2,
-      "rights": [1,2,3],
-      "rights_zh": ["包邮", "消费折扣", "积分回馈倍率"],
-      "status": 2,
-      "status_zh": "使用中"
+      "name": "金卡",
+      "condition": 3,
+      "period": "2019-11-19 ~ 2020-11-18",
+      "rights": [1,3,4],
+      "status": 3
     },
     {
       "id": 4,
-      "name": "亲情卡",
+      "name": "白金卡",
       "condition": 1,
-      "condition_zh": "可直接领取",
-      "period": 3,
-      "rights": [1,2,3],
-      "rights_zh": ["包邮", "消费折扣", "积分回馈倍率"],
-      "status": 3,
-      "status_zh": "使用中"
+      "period": 1,
+      "rights": [1,3,4],
+      "status": 1
+    },
+    {
+      "id": 5,
+      "name": "爱情卡",
+      "condition": 1,
+      "period": 1,
+      "rights": [1,3,4],
+      "status": 1
     }
   ]
 }

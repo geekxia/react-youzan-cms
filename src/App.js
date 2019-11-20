@@ -12,15 +12,25 @@ import 'antd/dist/antd.css'
 import '@/assets/css/common.scss'
 
 import { QfLayout } from '@/components'
+import Login from '@/routes/login/Login'
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      isLogin: true
+    }
+  }
 
   render() {
+    let { isLogin } = this.state
     return (
       <HashRouter>
         <Provider store={store}>
           <div className="app">
-            <QfLayout></QfLayout>
+            {
+              isLogin ? <QfLayout></QfLayout> : <Login></Login>
+            }
           </div>
         </Provider>
       </HashRouter>

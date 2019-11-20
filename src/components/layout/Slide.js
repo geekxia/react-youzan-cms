@@ -11,8 +11,6 @@ export default class Slide extends React.Component {
     return (
       <div className='qf_layout_slide'>
         <Menu
-          defaultSelectedKeys={['1']}
-          defaultOpenKeys={['sub1']}
           mode="inline"
           theme="dark"
         >
@@ -20,7 +18,7 @@ export default class Slide extends React.Component {
             /* 生成menu */
             routes.map((ele, idx)=>{
               /* 当有二级导航链接时 */
-              if (ele.sub && ele.sub.length > 0) {
+              if (ele.children && ele.children.length > 0) {
                 return(
                   <SubMenu
                     key={ele.id}
@@ -32,7 +30,7 @@ export default class Slide extends React.Component {
                     }
                   >
                     {
-                      ele.sub.map((ele2, idx2) => {
+                      ele.children.map((ele2, idx2) => {
                         return(
                           <Menu.Item key={ele2.id}>
                             <NavLink exact to={ele2.path}>{ele2.text}</NavLink>
@@ -45,8 +43,10 @@ export default class Slide extends React.Component {
               } else {  // 当没有二级导航链接时
                 return(
                   <Menu.Item key={ele.id}>
-                    <Icon type={ele.icon} />
-                    <span>{ele.text}</span>
+                    <NavLink exact to={ele.path}>
+                      <Icon type={ele.icon} />
+                      <span>{ele.text}</span>
+                    </NavLink>
                   </Menu.Item>
                 )
               }

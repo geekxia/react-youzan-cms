@@ -1,15 +1,20 @@
 import React from 'react'
 import './style.scss'
 import { Route, Switch } from 'react-router-dom'
-import routes from '@/routes'
+import router from '@/utils/router'
 
 export default class Content extends React.Component {
 
-  // 生成Route容器
+  // 生成Route容器（第一版）
   createRoute(arr) {
     let routeArr = []
     // 爷爷
     arr.map((ele, idx) => {
+      if (ele.path && ele.component) {
+        routeArr.push(
+          <Route key={ele.id} path={ele.path} exact component={ele.component}></Route>
+        )
+      }
       if (ele.sub && ele.sub.length > 0) {
         // 爸爸
         ele.sub.map((ele2, idx2)=>{
@@ -29,12 +34,28 @@ export default class Content extends React.Component {
     })
     return routeArr
   }
+
+  // 升级后的路由容器渲染
+  createRouteUpdated(arr) {
+    let routeArr = []
+    arr.map((ele,idx)=>{
+      if (ele.path && ele.component) {
+        routeArr.push(
+          <Route key={ele.id} path={ele.path} exact component={ele.component}></Route>
+        )
+      }
+    })
+    return routeArr
+  }
+
+
+
   render() {
     return (
       <div className='qf_layout_content'>
         <Switch>
         {
-          this.createRoute(routes)
+          this.createRouteUpdated(router)
         }
         {/*<Redirect from='/*' to='/card'></Redirect>*/}
         </Switch>

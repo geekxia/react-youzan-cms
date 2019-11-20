@@ -1,5 +1,7 @@
 import React from 'react'
 import './style.scss'
+import moment from 'moment'
+import { inject, observer } from 'mobx-react'
 import {
   Row,
   Col,
@@ -16,34 +18,90 @@ const { RangePicker } = DatePicker
 const { TextArea } = Input
 const { Option } = Select
 
-export default class CardCreate extends React.Component {
+@inject('store') @observer
+class CardCreate extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      card: {
-        name: '',
-        period: 1,
-        condition: 1,
-        rights: []
-      }
+      name: '',   // 卡的名称
+      period: 1,  // 卡的有效期， 1- 2-
+      periodTime: '',
+      condition: 1, // 领取条件
+      rights: [1,4], // 权益列表
     }
   }
 
-  periodChange(e) {
-    console.log(e.target.value)
+  // 获取卡名称
+  nameChange(e) {
+    this.setState({ name: e.target.value })
   }
-  dateChange(e) {
-    console.log(e[0].format('YYYY-MM-DD'))
-    console.log(e[1].format('YYYY-MM-DD'))
+  // 获取有效期
+  periodChange(e) {
+    this.setState({period: e.target.value})
+  }
+  // 获取时间区域（有效期）
+  timeChange(e) {
+    console.log(e)
+    this.setState({
+      periodTime: e[0].format('YYYY-MM-DD') + '~' + e[1].format('YYYY-MM-DD')
+    })
+  }
+  // 领取条件获取
+  conditionChange(e) {
+    this.setState({ condition: e.target.value})
+  }
+  // 权益项获取
+  rightsChange(e) {
+    console.log(e.target.checked, e.target.value)
+    let arr = this.state.rights
+    console.log('arr', arr)
+    if (e.target.checked) {
+      // 添加一条权益
+      arr.push(e.target.value)
+    } else {
+      // 取消一条权益
+      let idx = arr.findIndex(ele=>ele===e.target.value)
+      arr.splice(idx, 1)
+    }
+    this.setState({rights: [...new Set(arr)]})
+  }
+
+  // 提交卡片信息（接口提交）
+  submit() {
+    const period = this.state.period
+    const data = {
+      name: this.state.name,
+      period: period === 3 ? this.state.periodTime : period,
+      condition: this.state.condition,
+      rights: this.state.rights
+    }
+    // 数据类型校验
+    // 数据提交
+    this.props.store.CardStore.add(data)
+    console.log('入参', data)
+    // 提交成功，跳转至首页
+    this.props.history.replace('/card')
   }
 
   render() {
+    let { name, period, condition, rights } = this.state
+    // Checkbox的数据处理
     const options1 = [
-      { label: '包邮', value: '1' },
-      { label: '消费折扣', value: '2' },
-      { label: '积分回馈倍率', value: '3' },
-      { label: '获取好友体验卡', value: '4' }
+      { label: '包邮', value: 1 },
+      { label: '消费折扣', value: 2 },
+      { label: '积分回馈倍率', value: 3 },
+      { label: '获取好友体验卡', value: 4 }
     ]
+    options1.map((ele, idx)=>{
+      let idx2 = rights.findIndex(ele2 => ele2 === ele.value)
+      if (idx2 !== -1) {
+        options1[idx].checked = true
+      } else {
+        options1[idx].checked = false
+      }
+    })
+    // console.log('options1', options1)
+
     const options2 = [
       { label: '送积分', value: '1' },
       { label: '送优惠券', value: '2' },
@@ -54,6 +112,8 @@ export default class CardCreate extends React.Component {
       { label: '会员', value: '2' },
       { label: 'VIP会员', value: '3' }
     ]
+
+
     return (
       <div className='page_card_create'>
 
@@ -62,12 +122,16 @@ export default class CardCreate extends React.Component {
           <div className='pcc_block'>
             <div className='pcc_block_title'>基本信息</div>
 
+            {/*入参：name*/}
             <Row type='flex' align='middle' className='pcc_block_row'>
               <Col span={4}>
                 <span className='pcc_block_lable'>名称：</span>
               </Col>
               <Col span={10}>
-                <Input placeholder="最多输入9个字符" />
+                <Input
+                  value={name}
+                  onChange={this.nameChange.bind(this)}
+                  placeholder="最多输入9个字符" />
               </Col>
             </Row>
 
@@ -87,12 +151,15 @@ export default class CardCreate extends React.Component {
               </Col>
             </Row>
 
+            {/*入参：period*/}
             <Row className='pcc_block_row'>
               <Col span={4}>
                 <span className='pcc_block_lable'>卡有效期：</span>
               </Col>
-              <Col span={9}>
-                <Radio.Group onChange={this.periodChange.bind(this)}>
+              <Col span={10}>
+                <Radio.Group
+                  onChange={this.periodChange.bind(this)}
+                  value={period}>
                   <Radio value={1} className='pcc_block_radio'>
                     <span>永久有效</span>
                   </Radio>
@@ -100,18 +167,24 @@ export default class CardCreate extends React.Component {
                     <span>领卡时起</span>
                   </Radio>
                   <Radio value={3} className='pcc_block_radio'>
-                    <RangePicker onChange={this.dateChange.bind(this)} />
+                    <RangePicker
+                      defaultValue={[moment('2019-11-20'), moment('2020-12-19')]}
+                      onChange={this.timeChange.bind(this)}
+                      disabled={period !== 3} />
                   </Radio>
                 </Radio.Group>
               </Col>
             </Row>
 
+            {/*入参：condition*/}
             <Row className='pcc_block_row'>
               <Col span={4}>
                 <span className='pcc_block_lable'>领取设置：</span>
               </Col>
               <Col span={8}>
-                <Radio.Group>
+                <Radio.Group
+                  onChange={this.conditionChange.bind(this)}
+                  value={condition}>
                   <Radio value={1} className='pcc_block_radio'>
                     <span>可直接领取</span>
                   </Radio>
@@ -146,8 +219,8 @@ export default class CardCreate extends React.Component {
 
           {/*权益礼包 块*/}
           <div className='pcc_block'>
-            <div className='pcc_block_title'>权益礼包</div>
-
+            <div className='pcc_block_title'>基本信息</div>
+            {/*入参：rights*/}
             <Row className='pcc_block_row'>
               <Col span={4}>
                 <span className='pcc_block_lable'>权益：</span>
@@ -157,7 +230,12 @@ export default class CardCreate extends React.Component {
                   options1.map((ele,idx)=>{
                     return(
                       <div key={idx}>
-                        <Checkbox>{ele.label}</Checkbox>
+                        <Checkbox
+                          value={ele.value}
+                          onChange={this.rightsChange.bind(this)}
+                          checked={ele.checked}>
+                          {ele.label}
+                        </Checkbox>
                       </div>
                     )
                   })
@@ -174,7 +252,7 @@ export default class CardCreate extends React.Component {
                 <div>领卡礼包仅在权益卡首次领取和续费时发放</div>
                 {
                   options2.map((ele,idx)=>{
-                    if (idx === 2) {
+                    if (idx === 2 ) {
                       return(
                         <div key={idx}>
                           <Checkbox>{ele.label}</Checkbox>
@@ -220,15 +298,6 @@ export default class CardCreate extends React.Component {
               </Col>
             </Row>
 
-            <Row className='pcc_block_row'>
-              <Col span={4}>
-                <span className='pcc_block_lable'>分享设置：</span>
-              </Col>
-              <Col span={10}>
-                <Checkbox>允许分享</Checkbox>
-              </Col>
-            </Row>
-
             <Row type='flex' align='middle' className='pcc_block_row'>
               <Col span={4}>
                 <span className='pcc_block_lable'>过期设置：</span>
@@ -256,10 +325,15 @@ export default class CardCreate extends React.Component {
 
         {/*按钮区域 块*/}
         <div className='pcc_block_btns'>
-          <Button className='pcc_block_btn' type="primary">保存</Button>
+          <Button
+            onClick={this.submit.bind(this)}
+            className='pcc_block_btn'
+            type="primary">保存</Button>
           <Button className='pcc_block_btn'>取消</Button>
         </div>
       </div>
     )
   }
 }
+
+export default CardCreate
