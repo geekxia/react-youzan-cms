@@ -99,6 +99,7 @@ class CardCreate extends React.Component {
       } else {
         options1[idx].checked = false
       }
+      return null
     })
     // console.log('options1', options1)
 
@@ -240,7 +241,7 @@ class CardCreate extends React.Component {
                     )
                   })
                 }
-                <div><a>更多权益</a></div>
+                <div><a href=''>更多权益</a></div>
               </Col>
             </Row>
 

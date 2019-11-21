@@ -75,7 +75,9 @@
     "extends": ["react-app"],
     "rules": {
       "array-callback-return": "off",
-      "anchor-is-valid": "off"
+      "array-callback-return": [0],
+      "jsx-a11y/anchor-is-valid": "off",
+      "jsx-a11y/anchor-is-valid": [0]
     }
   },
   "browserslist": {

@@ -135,9 +135,9 @@ class TabCardList extends React.Component {
         render: () => {
           return(
             <div className='pct_row_actions'>
-              <a>查看成员</a>
-              <a>发卡</a>
-              <a>编辑</a>
+              <a href=''>查看成员</a>
+              <a href=''>发卡</a>
+              <a href=''>编辑</a>
             </div>
           )
         },
