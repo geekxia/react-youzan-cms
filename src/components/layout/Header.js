@@ -24,12 +24,14 @@ class Header extends React.Component {
         if (ele.path === url) {
           text = ele.text
         }
+        return false
       })
       breadArr.push(
         <Breadcrumb.Item key={url}>
           <Link to={url}>{text}</Link>
         </Breadcrumb.Item>
       )
+      return false
     })
     return breadArr
   }
@@ -49,5 +51,4 @@ class Header extends React.Component {
   }
 }
 
-const HeaderWithRouter = withRouter(Header)
-export default HeaderWithRouter
+export default withRouter(Header)

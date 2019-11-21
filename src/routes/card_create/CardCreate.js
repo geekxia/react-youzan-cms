@@ -42,9 +42,11 @@ class CardCreate extends React.Component {
   // 获取时间区域（有效期）
   timeChange(e) {
     console.log(e)
-    this.setState({
-      periodTime: e[0].format('YYYY-MM-DD') + '~' + e[1].format('YYYY-MM-DD')
-    })
+    if (e && e.length === 2) {
+      this.setState({
+        periodTime: e[0].format('YYYY-MM-DD') + '~' + e[1].format('YYYY-MM-DD')
+      })
+    }
   }
   // 领取条件获取
   conditionChange(e) {
@@ -99,7 +101,6 @@ class CardCreate extends React.Component {
       } else {
         options1[idx].checked = false
       }
-      return null
     })
     // console.log('options1', options1)
 
@@ -270,7 +271,7 @@ class CardCreate extends React.Component {
 
                   })
                 }
-                <div>权益不够用？<a>去配置权益</a></div>
+                <div>权益不够用？<a href=''>去配置权益</a></div>
               </Col>
             </Row>
           </div>
@@ -294,8 +295,8 @@ class CardCreate extends React.Component {
                 <span className='pcc_block_lable'>同步微信卡包：</span>
               </Col>
               <Col span={10}>
-                <div>未绑定认证的服务号或订阅号，<a>去绑定</a></div>
-                <div>未认证的订阅号或服务号建议<a>申请代制卡券</a></div>
+                <div>未绑定认证的服务号或订阅号，<a href=''>去绑定</a></div>
+                <div>未认证的订阅号或服务号建议<a href=''>申请代制卡券</a></div>
               </Col>
             </Row>
 

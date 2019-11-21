@@ -1,7 +1,7 @@
 import React from 'react'
 
 // 路由
-import { HashRouter } from 'react-router-dom'
+import { HashRouter, Route } from 'react-router-dom'
 
 // 状态管理
 import { Provider } from 'mobx-react'
@@ -28,9 +28,11 @@ export default class App extends React.Component {
       <HashRouter>
         <Provider store={store}>
           <div className="app">
-            {
+            {/*
               isLogin ? <QfLayout></QfLayout> : <Login></Login>
-            }
+            */}
+            <QfLayout />
+            <Route exact path='/login' component={Login} />
           </div>
         </Provider>
       </HashRouter>

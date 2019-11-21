@@ -12,6 +12,7 @@ function routesToArray(routes) {
     if (ele.sub && ele.sub.length > 0) {
       routesToArray(ele.sub)
     }
+    return false
   })
 }
 routesToArray(routes)
